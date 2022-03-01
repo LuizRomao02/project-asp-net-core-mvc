@@ -10,6 +10,8 @@ namespace Workshop.Controllers
 {
     public class HomeController : Controller
     {
+
+        // IActionResult --> é uma interface do tipo generico para todo resultado de uma ação
         public IActionResult Index()
         {
             return View();
@@ -17,16 +19,17 @@ namespace Workshop.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = "teste description page.";
+            ViewData["email"] = "lh168205@gmail.com";
 
-            return View();
+            return View(); // metode biulder,metodo auxiliar -- estou instanciando a View() e estou no about
         }
 
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
 
-            return View();
+            return View(); 
         }
 
         public IActionResult Privacy()

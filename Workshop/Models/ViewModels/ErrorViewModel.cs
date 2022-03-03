@@ -1,6 +1,6 @@
 using System;
 
-namespace Workshop.Models
+namespace Workshop.Models.ViewModels
 {
     public class ErrorViewModel
     {

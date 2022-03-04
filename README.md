@@ -3,5 +3,6 @@
 Command BD Update --
 
 Package Manage Console (Visual Studio)
+
 --> Add-Migration OtherEntities
 --> Update-Database 

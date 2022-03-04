@@ -37,7 +37,8 @@ namespace Workshop
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddDbContext<WorkshopContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("WorkshopContext")));
+                    options.UseMySql(Configuration.GetConnectionString("WorkshopContext"), builder =>
+                        builder.MigrationsAssembly("Workshop")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

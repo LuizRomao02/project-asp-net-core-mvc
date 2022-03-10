@@ -12,6 +12,7 @@ namespace Workshop.Models
         public DateTime BirthDate{ get; set; }
         public double BaseSalary{ get; set; }
         public Departament Departament { get; set; }
+        public int DepartamentId { get; set; } //com o ID no final ja identifica que é uma chave estrangeira - naopodendo ser nulo
         public ICollection<SalesRecord> Sales { get; set; } = new List<SalesRecord>();
 
 

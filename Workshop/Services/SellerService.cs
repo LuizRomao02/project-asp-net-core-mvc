@@ -22,6 +22,7 @@ namespace Workshop.Services
 
         public void Insert(Seller obj) //adicionar as informações no banco de dados
         {
+            obj.Departament = _context.Departament.First();
             _context.Add(obj);
             _context.SaveChanges();
         }

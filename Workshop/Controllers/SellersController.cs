@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Workshop.Models;
+using Workshop.Models.ViewModels;
 using Workshop.Services;
 
 namespace Workshop.Controllers
@@ -12,10 +13,12 @@ namespace Workshop.Controllers
     {
 
         private readonly SellerService _sellerServices;
+        private readonly DepartamentService _departamentService;
 
-        public SellersController(SellerService sellerService) //construtor para injetar a dependencia
+        public SellersController(SellerService sellerService, DepartamentService departamentService) //construtor para injetar a dependencia
         {
             _sellerServices = sellerService;
+            _departamentService = departamentService;
         }
 
         public IActionResult Index()
@@ -27,7 +30,9 @@ namespace Workshop.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            var departaments = _departamentService.FindAll();
+            var viewModel = new SellerFormViewModel { Departaments = departaments };
+            return View(viewModel);
         }
 
         [HttpPost]

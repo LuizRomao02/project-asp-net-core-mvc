@@ -20,5 +20,10 @@ namespace Workshop.Services
             return _context.Seller.ToList();
         }
 
+        public void Insert(Seller obj) //adicionar as informações no banco de dados
+        {
+            _context.Add(obj);
+            _context.SaveChanges();
+        }
     }
 }

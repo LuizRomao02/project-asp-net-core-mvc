@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Workshop.Models;
 using Microsoft.EntityFrameworkCore;
+using Workshop.Services.Exceptions;
 
 namespace Workshop.Services
 {
@@ -38,6 +39,26 @@ namespace Workshop.Services
             var obj = _context.Seller.Find(id);
             _context.Seller.Remove(obj);
             _context.SaveChanges();
+
+        }
+
+        public void Update(Seller obj)
+        {
+            if (!_context.Seller.Any(x => x.Id == obj.Id))
+            {
+                throw new NotFoundException("ID não encontrado");
+            }
+
+            try
+            {
+                _context.Update(obj);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException e) //DbUpdateConcurrencyException caso atualize e retorne algum erro no bd em relação a conflito, o programa retorna esta função automaticamente, entao, devemos tratar esta informação
+            {
+                throw new DbConcurrencyException(e.Message);
+
+            }
 
         }
     }

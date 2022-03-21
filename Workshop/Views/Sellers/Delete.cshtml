@@ -36,11 +36,17 @@
         <dd>
             @Html.DisplayFor(model => model.BaseSalary)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Departament)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Departament.Name)
+        </dd>
     </dl>
 
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" />
+        <input type="submit" value="Deletar" class="btn btn-danger" />
         <a asp-action="Index">Voltar</a>
 
     </form>

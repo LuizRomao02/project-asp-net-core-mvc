@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Workshop.Models;
 using Workshop.Models.ViewModels;
 using Workshop.Services;
+using Workshop.Services.Exceptions;
 
 namespace Workshop.Controllers
 {
@@ -14,7 +15,7 @@ namespace Workshop.Controllers
 
         private readonly SellerService _sellerServices;
         private readonly DepartamentService _departamentService;
-       
+
 
         public SellersController(SellerService sellerService, DepartamentService departamentService) //construtor para injetar a dependencia
         {
@@ -46,13 +47,13 @@ namespace Workshop.Controllers
 
         public IActionResult Delete(int? id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return NotFound();
             }
             var obj = _sellerServices.FindById(id.Value);
 
-            if(obj == null)
+            if (obj == null)
             {
                 return NotFound();
             }
@@ -82,6 +83,54 @@ namespace Workshop.Controllers
             }
 
             return View(obj);
+        }
+
+        public IActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var obj = _sellerServices.FindById(id.Value);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            List<Departament> departaments = _departamentService.FindAll();
+            SellerFormViewModel viewModel = new SellerFormViewModel
+            {
+                Seller = obj,
+                Departaments = departaments
+            };
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, Seller seller)
+        {
+            if (id != seller.Id)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                _sellerServices.Update(seller);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (NotFoundException)
+            {
+                return NotFound();
+            }
+            catch (DbConcurrencyException)
+            {
+                return BadRequest();
+            }
+
+
         }
     }
 }

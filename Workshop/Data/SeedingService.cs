@@ -16,7 +16,7 @@ namespace Workshop.Data
         {
             _context = context;
         }
-
+       
         public void Seed() //responsavel para popular o db
         {
             if(_context.Departament.Any() || _context.Seller.Any() || _context.SalesRecord.Any() )
